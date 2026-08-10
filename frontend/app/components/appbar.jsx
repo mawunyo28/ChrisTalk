@@ -7,9 +7,17 @@ import Moon from "@/app/icons/Moon";
 
 const Appbar = () => {
   return (
-    <div className="w-full">
-      <div className=" flex flex-row">
-        <span className="text-3xl font-bold">App</span>
+    <div className="w-full sticky left-0">
+      <div className=" flex flex-row justify-around items-center">
+        <h1 className="text-4xl font-bold">App</h1>
+        <div id="links">
+          <ul className="flex gap-8 text-lg justify-between cursor-pointer">
+            <li className="hover:underline">Home</li>
+            <li className="hover:underline">Discover</li>
+            <li className="hover:underline">Create</li>
+            <li className="hover:underline">Live</li>
+          </ul>
+        </div>
         <ThemeToggle></ThemeToggle>
       </div>
 
@@ -22,13 +30,12 @@ const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="ml-auto">
+    <div className="">
       <Button
         variant="tertiary"
         size="sm"
         onPress={() => {
           setTheme(theme === "dark" ? "light" : "dark");
-          console.log("Hei");
         }}
       >
         {theme === "dark" ? <Sun /> : <Moon />}

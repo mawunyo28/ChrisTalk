@@ -33,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="bg-background text-foreground min-h-full flex flex-col m-2">
         <Providers>
-          <div className="flex">
+          <div className="flex gap-2">
             <Appbar></Appbar>
             <div className="flex-1">{children} </div>
           </div>
