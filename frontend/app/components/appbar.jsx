@@ -9,7 +9,7 @@ const Appbar = () => {
   return (
     <div className="w-full sticky left-0">
       <div className=" flex flex-row justify-around items-center">
-        <h1 className="text-4xl font-bold">App</h1>
+        <h1 className="text-4xl font-bold">ChrisTalk</h1>
         <div id="links">
           <ul className="flex gap-8 text-lg justify-between cursor-pointer">
             <li className="hover:underline">Home</li>
