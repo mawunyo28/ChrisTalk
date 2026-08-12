@@ -31,11 +31,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${roboto.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="bg-background text-foreground min-h-full flex flex-col m-2">
+      <body className="bg-background text-foreground min-h-screen h-full flex flex-col m-2">
         <Providers>
-          <div className="flex gap-2">
+          <div className="flex flex-col gap-2 w-full h-full">
             <Appbar></Appbar>
-            <div className="flex-1">{children} </div>
+            <div className="flex-1 w-full h-full justify-center items-center">
+              {children}
+            </div>
           </div>
         </Providers>
       </body>
