@@ -1,2 +1,5 @@
 christ-talk-design-spec.md
 christ-talk-landing.html
+
+target/
+.env*
