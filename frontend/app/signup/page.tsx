@@ -8,7 +8,6 @@ import {
   Input,
   Label,
   TextField,
-  Card,
 } from "@heroui/react";
 import Image from "next/image";
 import community from "@/public/community.jpg";
