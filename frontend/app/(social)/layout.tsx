@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 import "@/app/globals.css";
 import { Providers } from "@/app/providers";
 import { ThemeSwitcher } from "../components/theme-switcher";
+import Sidebar from "../components/sidebar";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -24,9 +25,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="bg-background text-foreground min-h-screen h-full flex flex-col m-2">
         <Providers>
           <div className="flex flex-col gap-2 w-full h-full">
-            <div className="flex-1 w-full h-full justify-center items-center">
+            <div className="flex-1 flex w-full h-full justify-center items-center">
               <ThemeSwitcher />
-              {children}
+              <div className="flex-1 w-full h-full">
+                <Sidebar />
+              </div>
+
+              <div className="flex-4 w-full h-full">{children}</div>
             </div>
           </div>
         </Providers>
