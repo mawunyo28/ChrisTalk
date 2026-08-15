@@ -1,14 +1,19 @@
 "use client";
-import { Surface } from "@heroui/react";
+import { Spinner, Surface, toast } from "@heroui/react";
 import { Form, Button } from "@heroui/react";
 import { FieldError, Input, Label, TextField } from "@heroui/react";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import community from "@/public/community.jpg";
+import { createClient } from "@/app/utils/supabase/client";
+import { useRouter } from "next/navigation";
 
 const SignIn = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   return (
     <div className="flex flex-col h-full w-full justify-center items-center gap-6 ">
       <div className="relative z-10 -mb-6">
@@ -29,6 +34,7 @@ const SignIn = () => {
             src={community}
             alt="Community image"
             fill
+            loading="eager"
             className="object-cover  rounded-4xl"
           />
         </Surface>
@@ -38,11 +44,42 @@ const SignIn = () => {
         >
           <Form
             className="flex flex-col gap-4"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
 
+              setLoading(true);
+
               const data = Object.fromEntries(new FormData(e.currentTarget));
-              console.log(data);
+
+              const email = data.email.toString();
+              const password = data.password.toString();
+
+              const supabase = createClient();
+
+              const { error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+              });
+
+              if (error) {
+                toast("An error occuring during signup", {
+                  actionProps: {
+                    children: "Dismiss",
+                    onPress: () => toast.clear(),
+                    variant: "tertiary",
+                  },
+
+                  description: error.message,
+                  variant: "default",
+                });
+
+                setLoading(false);
+                return;
+              }
+
+              setLoading(false);
+
+              router.push("/home");
             }}
           >
             <TextField
@@ -106,10 +143,10 @@ const SignIn = () => {
             </TextField>
 
             <div className="flex justify-between gap-2 w-full">
-              <Button type="submit">
-                {/* <Check /> */}
-                Submit
+              <Button type="submit" isPending={loading}>
+                {loading ? <Spinner color="current" /> : <>Submit</>}
               </Button>
+
               <Button type="reset" variant="secondary">
                 Reset
               </Button>
